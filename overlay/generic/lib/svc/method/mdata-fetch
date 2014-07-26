@@ -171,8 +171,11 @@ while IFS="|" read -r iface ip netmask primary gateway; do
     if [[ -n ${gateway} ]]; then
       echo "${gateway}" > /etc/defaultrouter
     fi
-    if [[ ${ip} == "dhcp" || ${ip} == "dhcp6" ]]; then
+    if [[ ${ip} == "dhcp" ]]; then
       touch /etc/dhcp.${iface}
+    fi
+    if [[ ${ip} == "dhcp6" ]]; then
+      echo "inet6" > /etc/dhcp.${iface}
     fi
   fi
 
